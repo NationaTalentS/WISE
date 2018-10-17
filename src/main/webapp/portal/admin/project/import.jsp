@@ -46,6 +46,7 @@
 	</script>
 </head>
 <body>
+<div id="pageWrapper">
 <%@ include file="../../headermain.jsp"%>
 <div id="page">
 	<div id="pageContent" class="contentPanel">
@@ -130,6 +131,7 @@ unzipped:
 			</form:form>
 		</div>
 	</div>
+</div>
 </div>
 </body>
 </html>

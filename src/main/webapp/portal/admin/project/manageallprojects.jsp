@@ -85,6 +85,7 @@ function updateMaxTotalAssetsSize(projectId, newMaxTotalAssetsSize) {
 }
 </script>
 <body>
+<div id="pageWrapper">
 <%@ include file="../../headermain.jsp"%>
 <div id="page">
 <div id="pageContent" class="contentPanel">
@@ -157,5 +158,6 @@ function updateMaxTotalAssetsSize(projectId, newMaxTotalAssetsSize) {
 </table>
 
 </div></div>
+</div>
 </body>
 </html>
