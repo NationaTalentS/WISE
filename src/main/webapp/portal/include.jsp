@@ -34,6 +34,8 @@ Properties wiseProperties = new Properties();
 wiseProperties.load(getClass().getClassLoader().getResourceAsStream("wise.properties"));
 String defaultLocale = wiseProperties.getProperty("defaultLocale");
 request.setAttribute("defaultLocale", defaultLocale);
+String wiseBaseURL = wiseProperties.getProperty("wiseBaseURL");
+request.setAttribute("wiseBaseURL", wiseBaseURL);
 %>
 
 <!-- $Id$ -->
@@ -41,4 +43,5 @@ request.setAttribute("defaultLocale", defaultLocale);
 <c:set var="sessionLocale" value="${sessionScope['org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE']}"/>
 <c:set var="locale" value="${ empty sessionLocale ? defaultLocale : sessionLocale }" />
 <c:set var="textDirection" value="${'iw' == locale || 'ar' == locale ? 'rtl' : 'ltr'}" />
+<c:set var="wiseBaseURL" value="${wiseBaseURL}"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
