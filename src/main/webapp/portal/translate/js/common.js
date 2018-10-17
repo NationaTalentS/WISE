@@ -301,6 +301,7 @@ View.prototype.retrieveLocale = function(locale,projectType) {
 /*
  * before user navigates away from the page or refreshes it, check to see if
  * user needs to save changes or not
+ * return nothing to continue without the message.
  */
 window.onbeforeunload = function() {
   if (isDirty) {
@@ -310,7 +311,7 @@ window.onbeforeunload = function() {
      */
     return false;
   } else {
-    return true;
+    return;
   }
 };
 
