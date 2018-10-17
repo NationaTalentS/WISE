@@ -30,7 +30,7 @@
 <body>
 
 <div id="page">
-    <div id="pageContent">
+    <div id="pageContent" style="width:auto;">
         <h5 style="color:#0000CC;"><a href="${contextPath}/admin"><spring:message
                 code="returnToMainAdminPage"/></a></h5>
         <br/>

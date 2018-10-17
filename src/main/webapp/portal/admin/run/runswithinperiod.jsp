@@ -25,6 +25,7 @@ th {
 </style>
 </head>
 <body>
+<div id="pageWrapper">
 <%@ include file="../../headermain.jsp"%>
 
 <div id="page">
@@ -70,6 +71,7 @@ th {
 </table>
 </div>
 
+</div>
 </div>
 </body>
 </html>

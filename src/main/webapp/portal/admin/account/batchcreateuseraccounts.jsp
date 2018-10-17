@@ -10,6 +10,9 @@
 	<link href="${contextPath}/<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 	<link href="${contextPath}/<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 	<link href="${contextPath}/<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+	<c:if test="${textDirection == 'rtl' }">
+			<link href="${contextPath}/<spring:theme code="rtlstylesheet"/>" rel="stylesheet" type="text/css" >
+	</c:if>
 	<%@ include file="../../favicon.jsp"%>
 
 	<script src="${contextPath}/<spring:theme code="generalsource" />" type="text/javascript"></script>
@@ -31,7 +34,7 @@
 <body>
 
 <div id="page">
-	<div id="pageContent">
+	<div id="pageContent" style="width:auto;">
 		<h5 style="color:#0000CC;"><a href="${contextPath}/admin"><spring:message code="returnToMainAdminPage" /></a></h5>
 		<br/>
 		<c:if test="${msg != null}">

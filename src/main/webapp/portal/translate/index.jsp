@@ -120,7 +120,7 @@
     <c:when test="${!empty param.userLocale && empty param.projectType}">
         <!-- case when user has chosen a locale but not the project to translate. Show them the translatable projects -->
         <!DOCTYPE html>
-        <html dir="${textDirection}">
+        <html x-dir="${textDirection}"> <%-- The page always ltr --%>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
             <meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -435,6 +435,12 @@
                 .cell_key {
                     word-wrap:break-word;
                     width:200px;
+                }
+                textarea {
+                  resize: vertical;
+                }
+                .foreignText.ar, .foreignText.iw {
+                  direction: rtl;
                 }
             </style>
         </head>

@@ -29,6 +29,7 @@ table, tr, td {
 </style>
 </head>
 <body>
+<div id="pageWrapper">
 <%@ include file="../../headermain.jsp"%>
 <div id="page">
 <div id="pageContent" class="contentPanel">
@@ -64,6 +65,7 @@ table, tr, td {
 		</c:otherwise>
 	</c:choose>
 </div></div>
+</div>
 
 </body>
 </html>
