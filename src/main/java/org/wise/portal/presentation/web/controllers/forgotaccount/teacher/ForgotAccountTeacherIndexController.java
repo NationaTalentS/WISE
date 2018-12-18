@@ -187,7 +187,7 @@ public class ForgotAccountTeacherIndexController {
       String[] recipients = new String[]{userEmail};
 
       // get user Locale
-      Locale userLocale = request.getLocale();
+			Locale userLocale = ControllerUtil.getUserLocale(request, user);
 
       String defaultSubject = "";
       String subject = "";

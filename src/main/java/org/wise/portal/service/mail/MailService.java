@@ -65,10 +65,11 @@ public class MailService implements IMailFacade {
     javaMailSender.setPort(Integer.valueOf(portString));
     javaMailSender.setProtocol((String) wiseProperties.getProperty("mail.transport.protocol"));
     javaMailSender.setJavaMailProperties(wiseProperties);
+		String html = message.replace("\n", "<br>");
     MimeMessage mimeMessage = javaMailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
     helper.setFrom(from);
-    helper.setText(message);
+		helper.setText(html, true);
     helper.setSubject(subject);
 
     if (cc != null) {

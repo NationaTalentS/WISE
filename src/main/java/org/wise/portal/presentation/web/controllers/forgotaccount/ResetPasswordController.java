@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.wise.portal.domain.authentication.MutableUserDetails;
 import org.wise.portal.domain.impl.PasswordReminderParameters;
 import org.wise.portal.domain.user.User;
+import org.wise.portal.presentation.web.controllers.ControllerUtil;
 import org.wise.portal.service.mail.MailService;
 import org.wise.portal.service.user.UserService;
 
@@ -210,7 +211,7 @@ public class ResetPasswordController {
       String[] recipients = new String[]{userEmail};
 
       // get user Locale
-      Locale userLocale = request.getLocale();
+			Locale userLocale = ControllerUtil.getUserLocale(request, user);
 
       // subject looks like this: "Notification from WISE4@Berkeley: Password Changed"
       String defaultSubject = messageSource.getMessage("forgotaccount.teacher.index.passwordChangedEmailSubject", new Object[]{portalName}, Locale.US);

@@ -480,19 +480,7 @@ public class WISE5AuthorProjectController {
       config.put("sharedProjects", wise5SharedProjects);
 
       // set user's locale
-      Locale locale = request.getLocale();
-      if (user != null) {
-        String userLanguage = user.getUserDetails().getLanguage();
-        if (userLanguage != null) {
-          if (userLanguage.contains("_")) {
-            String language = userLanguage.substring(0, userLanguage.indexOf("_"));
-            String country = userLanguage.substring(userLanguage.indexOf("_") + 1);
-            locale = new Locale(language, country);
-          } else {
-            locale = new Locale(userLanguage);
-          }
-        }
-      }
+			Locale locale = ControllerUtil.getUserLocale(request, user);
       config.put("locale", locale);
       config.put("webSocketURL", ControllerUtil.getWebSocketURL(request, contextPath));
     } catch (JSONException e) {

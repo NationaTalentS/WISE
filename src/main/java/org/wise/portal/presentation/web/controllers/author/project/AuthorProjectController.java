@@ -1489,6 +1489,8 @@ public class AuthorProjectController {
     //create a JSONObject to contain the config params
     JSONObject config = new JSONObject();
 
+		Locale locale = ControllerUtil.getUserLocale(request, user);
+
     try {
       //set the config variables
       config.put("username", username);
@@ -1504,7 +1506,7 @@ public class AuthorProjectController {
       }
       config.put("sessionTimeoutCheckInterval", sessionTimeoutCheckInterval); // how often session should be checked...check every minute (1 min=60sec=60000 milliseconds)
       config.put("cRaterRequestURL", cRaterRequestURL);
-      config.put("locale", request.getLocale());
+      config.put("locale", locale);
       config.put("previewProjectUrl", previewProjectUrl);
       config.put("deleteProjectUrl", deleteProjectUrl);
       config.put("analyzeProjectUrl", analyzeProjectUrl);

@@ -242,7 +242,7 @@ public class ShareProjectRunController {
             workgroupService.createWorkgroup("teacher", sharedOwners, run, null);
 
             //send an email to the new shared owner
-            Locale locale = request.getLocale();
+						Locale locale = ControllerUtil.getUserLocale(request, shareWithUser);
             ProjectRunEmailService emailService = new ProjectRunEmailService(signedInUser, shareWithUser,  run, locale);
             Thread thread = new Thread(emailService);
             thread.start();

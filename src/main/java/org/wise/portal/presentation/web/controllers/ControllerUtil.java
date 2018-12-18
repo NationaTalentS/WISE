@@ -29,12 +29,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.switchuser.SwitchUserFilter;
 import org.springframework.security.web.authentication.switchuser.SwitchUserGrantedAuthority;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.stereotype.Component;
 import org.wise.portal.domain.user.User;
 import org.wise.portal.service.portal.PortalService;
 import org.wise.portal.service.user.UserService;
 
 import java.util.Collection;
+import java.util.Locale;
 
 /**
  * A utility class for use by all controllers
@@ -73,6 +75,38 @@ public class ControllerUtil {
     } catch (NullPointerException npe) {
       return null;
     }
+  }
+	
+	
+  /**
+   * Returns session locale. If not found, return user locale. If not return request locale
+   * @return User locale.
+   */
+  public static Locale getUserLocale(HttpServletRequest request, User user) {
+		Locale locale = request.getLocale();
+
+		Locale sessionLocale = (Locale) request.getSession().getAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME);
+		if (user == null && sessionLocale != null) {
+			return sessionLocale;
+		}
+		
+		// User user = this.getSignedInUser();
+		
+		if (user != null) {
+			String userLanguage = user.getUserDetails().getLanguage();
+			if (userLanguage != null) {
+				if (userLanguage.contains("_")) {
+					String language = userLanguage.substring(0, userLanguage.indexOf("_"));
+					String country = userLanguage.substring(userLanguage.indexOf("_") + 1);
+					locale = new Locale(language, country);
+				} else {
+					locale = new Locale(userLanguage);
+				}
+			} else {
+				locale = new Locale(request.getParameter("defaultLocale"));
+			}
+		}
+		return locale;
   }
 
   /**

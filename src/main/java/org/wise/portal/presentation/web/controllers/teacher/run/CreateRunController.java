@@ -52,6 +52,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.wise.portal.dao.ObjectNotFoundException;
 import org.wise.portal.domain.authentication.impl.TeacherUserDetails;
 import org.wise.portal.domain.group.Group;
@@ -279,16 +280,17 @@ public class CreateRunController {
     if (result.hasErrors()) {
       return "teacher/run/create/createrunperiods";
     }
-
+		User user = ControllerUtil.getSignedInUser();
+		Locale userLocale = ControllerUtil.getUserLocale(request, user);
     postLevelTextMap = new HashMap<Long,String>();
     String defaultPostLevelHighMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelHighMessage",
       null, Locale.US);
     String postLevelHighMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelHighMessage",
-      null,defaultPostLevelHighMessage, request.getLocale());
+      null,defaultPostLevelHighMessage, userLocale);
     String defaultPostLevelLowMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelLowMessage",
       null, Locale.US);
     String postLevelLowMessage = messageSource.getMessage("presentation.web.controllers.teacher.run.CreateRunController.postLevelLowMessage",
-      null,defaultPostLevelLowMessage, request.getLocale());
+      null,defaultPostLevelLowMessage, userLocale);
 
     postLevelTextMap.put(5l, postLevelHighMessage);
     postLevelTextMap.put(1l, postLevelLowMessage);
@@ -370,8 +372,8 @@ public class CreateRunController {
 
     Project project = runParameters.getProject();
     Project newProject;  // copied project that will be used for new run.
+		User user = ControllerUtil.getSignedInUser();
     if (project.getWiseVersion().equals(5)) {
-      User user = ControllerUtil.getSignedInUser();
       CredentialManager.setRequestCredentials(request, user);
       String pathAllowedToAccess = CredentialManager.getAllowedPathAccess(request);
 
@@ -424,7 +426,7 @@ public class CreateRunController {
     Run run;
     try {
       runParameters.setProject(newProject);
-      Locale userLocale = request.getLocale();
+      Locale userLocale = ControllerUtil.getUserLocale(request, user);
       runParameters.setLocale(userLocale);
       runParameters.setPostLevel(5);   // always use the highest post-level (starting WISE5)
       run = this.runService.createRun(runParameters);
@@ -452,8 +454,7 @@ public class CreateRunController {
 
     // send email to the recipients in new thread
     // tries to retrieve the user from the session
-    User user = ControllerUtil.getSignedInUser();
-    Locale locale = request.getLocale();
+    Locale locale = ControllerUtil.getUserLocale(request, user);
     String fullWiseContextPath = ControllerUtil.getPortalUrlString(request);  // e.g. http://localhost:8080/wise
 
     CreateRunEmailService emailService =

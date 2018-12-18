@@ -256,7 +256,7 @@ public class ShareProjectController {
             // only send email if this is a new shared owner
             String contextPath = request.getContextPath(); // get the context path e.g. /wise
 
-            Locale locale = request.getLocale();
+						Locale locale = ControllerUtil.getUserLocale(request, retrievedUser);
             ShareProjectEmailService emailService =
               new ShareProjectEmailService(signedInUser, retrievedUser, project, ControllerUtil.getBaseUrlString(request),locale, contextPath);
             Thread thread = new Thread(emailService);
